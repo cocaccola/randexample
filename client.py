@@ -28,7 +28,7 @@ def main():
             else:
                 print(f"{datetime.now()} Received: {n.num}")
 
-            time.sleep(10)
+            time.sleep(3)
 
 if __name__ == '__main__':
     main()
