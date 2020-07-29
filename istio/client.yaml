@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: randexample-client
       role: client
-  replicas: 6
+  replicas: 10
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
         role: client
     spec:
       containers:
-      - image: gcr.io/accola/randexample:latest
+      - image: caccola/randexample:latest
         name: client
         env:
         - name: ADDRESS

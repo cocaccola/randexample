@@ -40,7 +40,7 @@ spec:
         version: prod
     spec:
       containers:
-      - image: gcr.io/accola/randexample:latest
+      - image: caccola/randexample:latest
         name: server
         args:
         - 'server'
@@ -80,7 +80,7 @@ spec:
         version: canary
     spec:
       containers:
-      - image: gcr.io/accola/randexample:latest
+      - image: caccola/randexample:latest
         name: server
         args:
         - 'canary'

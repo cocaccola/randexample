@@ -1,0 +1,7 @@
+kubectl create clusterrolebinding cluster-admin-binding \
+    --clusterrole=cluster-admin \
+        --user=$(gcloud config get-value core/account)
+
+istioctl install --set addonComponents.grafana.enabled=true
+
+kubectl label namespace default istio-injection=enabled
