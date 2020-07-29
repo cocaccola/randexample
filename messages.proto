@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package messages;
+
+service RandomNumberGenerator {
+    rpc GetRandomNumber(Request) returns (RandomNumber);
+}
+
+message Request {
+    int64 start = 1;
+    int64 end = 2;
+}
+
+message RandomNumber {
+    int64 num = 1;
+}

@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: randomnumber
+  labels:
+    app: randexample
+    role: loadbalancer
+spec:
+    type: ClusterIP
+    selector:
+      app: randexample
+      role: server
+    ports:
+    - name: grpc
+      port: 50051
+      targetPort: 50051
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: randexample-prod-server
+  labels:
+    app: randexample
+    role: server
+    version: prod
+spec:
+  selector:
+    matchLabels:
+      app: randexample
+      role: server
+      version: prod
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: randexample
+        role: server
+        version: prod
+    spec:
+      containers:
+      - image: gcr.io/accola/randexample:latest
+        name: server
+        args:
+        - 'server'
+        ports:
+        - containerPort: 50051
+          protocol: TCP
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "25m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: randexample-canary-server
+  labels:
+    app: randexample
+    role: server
+    version: canary
+spec:
+  selector:
+    matchLabels:
+      app: randexample
+      role: server
+      version: canary
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: randexample
+        role: server
+        version: canary
+    spec:
+      containers:
+      - image: gcr.io/accola/randexample:latest
+        name: server
+        args:
+        - 'canary'
+        ports:
+        - containerPort: 50051
+          protocol: TCP
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "25m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
